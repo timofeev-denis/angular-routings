@@ -19,13 +19,27 @@ nameAppS.config(function($routeProvider) {
     });
 });
 
-nameAppS.controller('NameCtrl', function ($rootScope, $scope, $route, $routeParams) {
+nameAppS.factory('names', function() {
+    return {
+        list: function() {
+            return [ 'Ramon', 'Hulio', 'Fernando', 'Huan'];
+        },
+        list2: function(callback) {
+            callback();
+        }
+    };
+});
+
+nameAppS.controller('NameCtrl', function ($rootScope, $scope, $route, $routeParams, names) {
+    $scope.names = names.list();
+    names.list2(function() {
+        $scope.names.push('Robero');
+    });
     function initCurrentRoute() {
         console.log('initCurrentRoute');
         document.title = $route.current.$$route.title;
     }
 
-    $scope.names = [ 'Ramon', 'Hulio', 'Fernando', 'Huan' ];
     if($routeParams.name != undefined) {
         $scope.name = $routeParams.name;
     }
