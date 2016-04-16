@@ -1,0 +1,35 @@
+<html ng-app="nameApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Angular.js Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+    <script>
+      var nameAppS = angular.module('nameApp', [])
+
+	  .controller('NameCtrl', function ($scope){
+        $scope.firstName = 'John';
+        $scope.lastName = 'Smith';
+		$scope.$watch( 'lastName', function(newValue, oldValue) {
+			console.log( oldValue + " -> " + newValue );
+		});
+      })
+	  
+	  .controller('NameListCtrl', function ($scope) {
+		$scope.names = [ 'Ramon', 'Hulio', 'Huan' ];
+	  })
+	  
+	  ;
+    </script>
+  </head>
+  <body ng-controller="NameCtrl">
+    First name:<input ng-model="firstName" type="text"/>
+    <br>
+    Last name:<input ng-model="lastName" type="text"/>
+    <br>
+    Hello {{firstName}} {{lastName}}
+	<ul ng-controller="NameListCtrl">
+		<li ng-repeat="name in names">{{name}}</li>
+	</ul>
+  </body>
+
+</html>
